@@ -1,19 +1,26 @@
 *{
     box-sizing: border-box;
 }
+.main{
+    width: 720px;
+    height: 720px;
+    margin: 0 auto;
+    border: 2px solid black;
+}
 .container{
-    max-width: 700px;
+    width: 100%;
+    height: 100%;
     margin:0 auto;
+    /* overflow: hidden; */
 }
-
 .grid-item{
-    width: 6.25%;
-    padding-top: 6.25%;
-    float: left;
-    border: 1px solid black;
-    background-color: white;
+    display: inline-block;
+    /* padding-top: 10%; */
 }
-
+.row{
+    width: 100%;
+    /* height: 9.75%; */
+}
 .row::after {
     content: "";
     clear: both;
