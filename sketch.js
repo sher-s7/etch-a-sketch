@@ -38,16 +38,22 @@ gridDivs.forEach((div) => {
     })
 })
 }
-
+function isNumber(value){
+    let numRegex = /^[1-9][0-9]*$/;
+    return numRegex.test(value);
+}
 function clearGrid(){
-    let newGridSize = prompt('Choose the size of your grid:');
     document.querySelectorAll('.grid-item').forEach(function(e){
         e.remove();
-    })
+    });
     document.querySelectorAll('.row').forEach(function(e){
         e.remove();
-    })
+    });
+    let newGridSize = prompt('Choose the size of your grid (Example: "16" will create a 16x16 grid');
+    while(!isNumber(newGridSize) || newGridSize===null){
+        newGridSize = prompt('Must enter a number. (Example: "16" will create a 16x16 grid');
+    }
     createGrid(newGridSize);
 }
 
-// createGrid(16);
+createGrid(16);
