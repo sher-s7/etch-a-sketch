@@ -21,9 +21,9 @@ function createGrid(numBox = 16) {
             div.classList.add('grid-item');
             div.setAttribute('style', `width: ${100 / numBox}%; padding-top:${100 / numBox}%;
             float: left;
-            outline: 1px solid black;
             background-color: white;
             filter: brightness(1);`);
+            //outline: 1px solid black;
             // div.style.width = `'${100/numBox}'%;`;
             // div.style.paddingTop = `'${100/numBox}'%`;
             row.appendChild(div);
@@ -76,16 +76,24 @@ function isNumber(value) {
     return numRegex.test(value);
 }
 function clearGrid() {
+    let newGridSize = prompt('Choose the size of your grid (Example: "16" will create a 16x16 grid');
+    console.log(newGridSize);
+    while (!isNumber(newGridSize)) {
+        if(newGridSize===null){
+            return;
+        }
+        newGridSize = prompt('Must enter a number greater than zero. (Example: "16" will create a 16x16 grid');
+    }
+    if(newGridSize===null){
+        return;
+    }
     document.querySelectorAll('.grid-item').forEach(function (e) {
         e.remove();
     });
     document.querySelectorAll('.row').forEach(function (e) {
         e.remove();
     });
-    let newGridSize = prompt('Choose the size of your grid (Example: "16" will create a 16x16 grid');
-    while (!isNumber(newGridSize) || newGridSize === null) {
-        newGridSize = prompt('Must enter a number. (Example: "16" will create a 16x16 grid');
-    }
+    container.removeEventListener('mouseover', currentMode, true);
     createGrid(newGridSize);
 }
 
