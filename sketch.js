@@ -21,9 +21,10 @@ function createGrid(numBox = 16) {
             div.classList.add('grid-item');
             div.setAttribute('style', `width: ${100 / numBox}%; padding-top:${100 / numBox}%;
             float: left;
+            outline: 1px solid lightgrey;
             background-color: white;
             filter: brightness(1);`);
-            //outline: 1px solid black;
+            
             // div.style.width = `'${100/numBox}'%;`;
             // div.style.paddingTop = `'${100/numBox}'%`;
             row.appendChild(div);
