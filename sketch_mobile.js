@@ -9,9 +9,9 @@ let menu = document.getElementById('menu');
 let currentMode;
 let event;
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
-    event = 'touchmove'
+    event = ['touchstart', 'touchmove']
    }else{
-       event = 'mouseover'
+       event = ['mouseover']
    }
 
 function createGrid(numBox = 16) {
@@ -100,7 +100,10 @@ function clearGrid() {
     document.querySelectorAll('.row').forEach(function (e) {
         e.remove();
     });
-    container.removeEventListener(event, currentMode, true);
+    event.forEach(e=>{
+        container.removeEventListener(e, currentMode, true);
+    })
+    
     createGrid(newGridSize);
 }
 
@@ -108,18 +111,26 @@ function clearGrid() {
   // button event listeners
   menu.addEventListener("click", function(e) {
       console.log('helloooooooo');
-    container.removeEventListener(event, currentMode, true);
+    event.forEach(e=>{
+        container.removeEventListener(e, currentMode, true);
+    })
     if (e.target.id == "black") {
         currentMode = blackSketch;
-        container.addEventListener(event, blackSketch, true);
+        event.forEach(e=>{
+            container.addEventListener(e, blackSketch, true);
+        })
     }
     if (e.target.id == "shader") {
         currentMode = shaderSketch;
+        event.forEach(e=>{
         container.addEventListener(event, shaderSketch, true);
+        })
     }
     if (e.target.id == "rainbow") {
         currentMode = rainbowSketch;
+        event.forEach(e=>{
         container.addEventListener(event, rainbowSketch, true);
+        })
     }
     // if (e.target.id == "reset") {
     //   resetGrid();
