@@ -2,7 +2,11 @@ let container = document.querySelector('.container');
 let row = document.createElement('div');
 row.classList.add('row');
 let gridDivs;
-
+// let blackButton = document.getElementById('black');
+// let rainbowButton = document.getElementById('rainbow');
+// let shaderButton = document.getElementById('shader');
+let menu = document.getElementById('menu');
+let currentMode;
 
 function createGrid(numBox = 16) {
 
@@ -28,32 +32,32 @@ function createGrid(numBox = 16) {
     gridDivs = document.querySelectorAll('.grid-item');
 }
 
-function rainbowSketch() {
-    gridDivs.forEach((div) => {
-        div.addEventListener('mouseover', (e) => {
+function rainbowSketch(e) {
+    currentMode = rainbowSketch;
+    if(e.target.className === 'grid-item'){
+            e.target.style.filter = 'brightness(1)';
             var randomR = Math.floor(Math.random() * (255 - 0 + 1) + 0);
             var randomG = Math.floor(Math.random() * (255 - 0 + 1) + 0);
             var randomB = Math.floor(Math.random() * (255 - 0 + 1) + 0);
             let alpha = 1;
             e.target.style.backgroundColor = `rgba(${randomR},${randomG},${randomB},${1})`;
-        })
-    })
+    }
 }
-function blackSketch() {
-    gridDivs.forEach((div) => {
-        div.addEventListener('mouseover', (e) => {
+function blackSketch(e) {
+    currentMode = blackSketch;
+        if(e.target.className === 'grid-item'){
             e.target.style.background = `black`;
-        })
-    })
+        }
+
 }
 function getValueBetweenBrackets(value){
     let betweenBracketRegex = /\(([^)]+)\)/;
     console.log(`This is value: ${betweenBracketRegex.exec(value)}`)
     return Number(betweenBracketRegex.exec(value)[1]);
 }
-function shaderSketch() {
-    gridDivs.forEach((div) => {
-        div.addEventListener('mouseover', (e) => {
+function shaderSketch(e) {
+    currentMode = shaderSketch;
+    if(e.target.className === 'grid-item'){
             if(e.target.style.backgroundColor === 'black' || e.target.style.filter === "brightness(0)"){
                 console.log('itsblack');
                 return;
@@ -62,8 +66,7 @@ function shaderSketch() {
                 let currentBrightness = getValueBetweenBrackets(shade);
                 e.target.style.filter = `brightness(${currentBrightness-0.1})`;
             }
-        })
-    })
+        }
 }
 
 
@@ -85,5 +88,26 @@ function clearGrid() {
     }
     createGrid(newGridSize);
 }
+
+  
+  // button event listeners
+  menu.addEventListener("click", function(e) {
+    container.removeEventListener('mouseover', currentMode, true);
+    if (e.target.id == "black") {
+        currentMode = blackSketch;
+        container.addEventListener("mouseover", blackSketch, true);
+    }
+    if (e.target.id == "shader") {
+        currentMode = shaderSketch;
+        container.addEventListener("mouseover", shaderSketch, true);
+    }
+    if (e.target.id == "rainbow") {
+        currentMode = rainbowSketch;
+        container.addEventListener("mouseover", rainbowSketch, true);
+    }
+    // if (e.target.id == "reset") {
+    //   resetGrid();
+    // }
+  })
 
 createGrid(16);
