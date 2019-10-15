@@ -100,6 +100,7 @@ function clearGrid() {
   
   // button event listeners
   menu.addEventListener("click", function(e) {
+      console.log('helloooooooo');
     container.removeEventListener('mouseover', currentMode, true);
     if (e.target.id == "black") {
         currentMode = blackSketch;
