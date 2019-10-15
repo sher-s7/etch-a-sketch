@@ -53,7 +53,7 @@ function rainbowSketch(e) {
 function blackSketch(e) {
     currentMode = blackSketch;
         if(e.target.className === 'grid-item'){
-            e.target.style.background = `black`;
+            document.elementFromPoint(e.clientX, e.clientY).style.background = `black`;
         }
 
 }
